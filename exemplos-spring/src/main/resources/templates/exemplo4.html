@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Exemplo 4 Spring MVC</title>
+</head>
+<body>
+	<h1>Exemplo 4 Spring MVC</h1>
+	<ul th:each="it : ${itens}">
+		<li>
+			<b th:text="${it.valor}"></b> - <span th:text="${it.texto}"></span> <span th:if="${it.multi10}">*****</span>
+		</li>
+	</ul>
+</body>
+</html>

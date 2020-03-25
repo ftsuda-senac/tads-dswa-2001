@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Exemplo 7 Spring MVC</title>
+</head>
+<body>
+	<h1>Exemplo 7 Spring MVC</h1>
+	<ul th:each="cab : ${cabecalhos}">
+		<li><b th:text="${cab.key}"></b> - <i th:text="${cab.value}"></i></li>
+	</ul>
+	<hr>
+	<table>
+		<thead>
+			<tr>
+				<th>Cabeçalho</th>
+				<th>Valor</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="cab : ${cabecalhos}">
+				<td th:text="${cab.key}"></td>
+				<td th:text="${cab.value}"></td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>
