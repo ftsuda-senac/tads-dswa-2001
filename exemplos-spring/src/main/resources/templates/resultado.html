@@ -7,7 +7,7 @@
 <body>
 <div>
 	<h1>Dados preenchidos</h1>
-	<div>
+	<div th:if="${dados != null}">
 		<p>ID: <span th:text="${dados.id}"></span></p>
 		<p>Nome: <span th:text="${dados.nome}"></span></p>
 		<p>Descrição: <span th:text="${dados.descricao}"></span></p>
@@ -23,6 +23,9 @@
 				<li th:text="${interesse}"></li>
 			</ul>
 		</p>
+	</div>
+	<div th:unless="${dados != null}">
+		<p>Dados não existentes</p>
 	</div>
 </div>
 
