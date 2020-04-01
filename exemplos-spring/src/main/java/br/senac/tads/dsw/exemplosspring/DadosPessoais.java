@@ -5,29 +5,46 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Size;
+
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 public class DadosPessoais {
 
 	private Integer id;
 
+	@NotBlank(message = "Preenchimento do nome é obrigatório")
 	private String nome;
 
 	private String descricao;
 
+	@Email
+	@NotBlank
 	private String email;
 
 	private String senha;
 
 	private String repetirSenha;
 
+	@Min(value = 1)
+	@Max(99)
 	private int numeroSorte;
 
+	@Digits(integer = 1, fraction = 2, message = "Altura com mais de 2 casas decimais")
 	private BigDecimal altura;
 
+	@Digits(integer = 3, fraction = 1, message = "Peso com mais de 1 casa decimal")
 	private BigDecimal peso;
 
+	@Past
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) // ISO-8601
 	private LocalDate dtNascimento;
 	
@@ -36,6 +53,7 @@ public class DadosPessoais {
 
 	private int sexo;
 
+	@NotNull
 	private List<String> interesses;
 
 	public Integer getId() {
