@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h1>Dados preenchidos</h1>
+<table>
+<thead>
+	<tr>
+		<th>ID</th>
+		<th>Nome</th>
+		<th>Data nascimento</th>
+		<th>Altura</th>
+		<th>Peso</th>
+	</tr>
+</thead>
+<tbody>
+	<tr th:each="dado : ${dados}">
+		<td th:text="${dado.id}"></td>
+		<td th:text="${dado.nome}"></td>
+		<td th:text="${dado.dtNascimento}"></td>
+		<td th:text="${dado.altura}"></td>
+		<td th:text="${dado.peso}"></td>
+	</tr>
+</tbody>
+</table>
+
+</body>
+</html>
