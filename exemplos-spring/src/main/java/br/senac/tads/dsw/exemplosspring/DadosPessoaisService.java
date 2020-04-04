@@ -23,7 +23,7 @@ public class DadosPessoaisService {
 		return new ArrayList<>(dados.values());
 	}
 	
-	public DadosPessoais findById(Long id) {
+	public DadosPessoais findById(Integer id) {
 		return dados.get(id);
 	}
 	
