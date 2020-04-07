@@ -29,6 +29,7 @@ import br.senac.tads.dsw.exemplosspring.sessao.item.ItemService;
  */
 @Controller
 @RequestMapping("/exemplo-sessao1")
+@SessionAttributes("itensSelecionados1")
 public class ExemploSessaoController1 {
 
 	@Autowired
@@ -42,7 +43,7 @@ public class ExemploSessaoController1 {
 	@PostMapping
 	public ModelAndView adicionarItem(
 			@ModelAttribute("itemId") Integer itemId,
-			List<ItemSelecionado> itensSelecionados,
+			@ModelAttribute("itensSelecionados1") List<ItemSelecionado> itensSelecionados,
 			RedirectAttributes redirAttr) {
 		Item item = itemService.findById(itemId);
 		itensSelecionados.add(new ItemSelecionado(item));
@@ -51,13 +52,15 @@ public class ExemploSessaoController1 {
 	}
 
 	@GetMapping("/limpar")
-	public ModelAndView limparSessao(List<ItemSelecionado> itensSelecionados,
+	public ModelAndView limparSessao(
+			@ModelAttribute("itensSelecionados1") List<ItemSelecionado> itensSelecionados,
 			RedirectAttributes redirAttr) {
 		itensSelecionados.clear();
 		redirAttr.addFlashAttribute("msg", "Itens removidos");
 		return new ModelAndView("redirect:/exemplo-sessao1");
 	}
 
+	@ModelAttribute("itensSelecionados1")
 	public List<ItemSelecionado> getItensSelecionados() {
 		return new ArrayList<>();
 	}
