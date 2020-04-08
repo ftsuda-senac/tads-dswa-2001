@@ -28,6 +28,11 @@
 		<div class="row">
 			<div class="col-12">
 				<h1 th:text="${titulo}">Exemplo sessão - item</h1>
+				<p th:text="${@exemploSessaoController2.texto}"></p>
+				<form method="post" th:action="@{/exemplo-sessao2/atualizar-texto}">
+					<input type="text" name="textoDigitado" />
+					<button type="submit" class="btn">Atualizar texto</button>
+				</form>
 			</div>
 		</div>
 		<div class="row" th:if="${msg != null}">

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -29,7 +30,7 @@ import br.senac.tads.dsw.exemplosspring.sessao.item.ItemService;
  */
 @Controller
 @RequestMapping("/exemplo-sessao1")
-@SessionAttributes("itensSelecionados1")
+@SessionAttributes({ "itensSelecionados1", "texto" })
 public class ExemploSessaoController1 {
 
 	@Autowired
@@ -60,9 +61,23 @@ public class ExemploSessaoController1 {
 		return new ModelAndView("redirect:/exemplo-sessao1");
 	}
 
+	@PostMapping("/atualizar-texto")
+	public ModelAndView atualizarTexto(
+			@RequestParam("textoDigitado") String textoDigitado,
+			@ModelAttribute("texto") StringWrapper texto, RedirectAttributes redirAttr) {
+		texto.setValor(textoDigitado);
+		redirAttr.addFlashAttribute("msg", "Texto recebido - " + textoDigitado);
+		return new ModelAndView("redirect:/exemplo-sessao1");
+	}
+
 	@ModelAttribute("itensSelecionados1")
 	public List<ItemSelecionado> getItensSelecionados() {
 		return new ArrayList<>();
+	}
+
+	@ModelAttribute("texto")
+	public StringWrapper getTexto() {
+		return new StringWrapper("Teste sessão");
 	}
 
 	@ModelAttribute("titulo")

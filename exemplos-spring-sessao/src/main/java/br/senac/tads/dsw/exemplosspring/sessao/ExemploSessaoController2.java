@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -28,6 +29,8 @@ public class ExemploSessaoController2 implements Serializable {
 	private ItemService itemService;
 	
 	private List<ItemSelecionado> itensSelecionados = new ArrayList<>();
+	
+	private String texto = "Texto digitado";
 
 	@GetMapping
 	public ModelAndView mostrarTela() {
@@ -51,9 +54,20 @@ public class ExemploSessaoController2 implements Serializable {
 		redirAttr.addFlashAttribute("msg", "Itens removidos");
 		return new ModelAndView("redirect:/exemplo-sessao2");
 	}
+
+	@PostMapping("/atualizar-texto")
+	public ModelAndView atualizarTexto(@RequestParam("textoDigitado") String textoDigitado, RedirectAttributes redirAttr) {
+		texto = new String(textoDigitado);
+		redirAttr.addFlashAttribute("msg", "Texto recebido - " + textoDigitado);
+		return new ModelAndView("redirect:/exemplo-sessao2");
+	}
 	
 	public List<ItemSelecionado> getItensSelecionados() {
 		return itensSelecionados;
+	}
+	
+	public String getTexto() {
+		return texto;
 	}
 
 	@ModelAttribute("titulo")
