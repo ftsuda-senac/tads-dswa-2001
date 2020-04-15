@@ -18,7 +18,6 @@ import org.springframework.stereotype.Service;
  *
  * @author fernando.tsuda
  */
-@Service
 public class ProdutoRepositoryMockImpl implements ProdutoRepository {
 
 	@Autowired

@@ -89,7 +89,7 @@ public class ProdutoController {
 
     @PostMapping("/salvar")
     public ModelAndView salvar(
-            @ModelAttribute @Valid Produto produto, 
+            @ModelAttribute("produto") @Valid Produto produto, 
             BindingResult bindingResult, RedirectAttributes redirAttr) {
         produto.setDtCadastro(LocalDateTime.now());
         if (produto.getIdsCategorias() != null && !produto.getIdsCategorias().isEmpty()) {
