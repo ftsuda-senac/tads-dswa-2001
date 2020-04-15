@@ -2,16 +2,14 @@ package br.senac.tads.dsw.exemplosspring.produto;
 
 import java.util.List;
 
-public interface ProdutoRepository {
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-	List<Produto> findAll(int offset, int quantidade);
-
-	List<Produto> findByCategoria(List<Integer> idsCat, int offset, int quantidade);
-
-	Produto findById(Long id);
-
-	Produto save(Produto p);
-
-	void deleteById(Long id);
+@Repository
+public interface ProdutoRepository extends JpaRepository<Produto, Long> {
+	
+	Page<Produto> findByCategorias_IdIn(List<Integer> idsCat, Pageable page);
 
 }
