@@ -10,6 +10,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
+
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 @Entity
 public class Contato {
@@ -25,6 +29,7 @@ public class Contato {
 	private String apelido;
 
 	@Column
+	@DateTimeFormat(iso = ISO.DATE) // ISO-8601
 	private LocalDate dataNascimento;
 
 	@Column
@@ -35,6 +40,12 @@ public class Contato {
 
 	@OneToMany(mappedBy = "contato")
 	private Set<Email> emails;
+
+	@Transient
+	private transient String telefoneTemp;
+
+	@Transient
+	private transient String emailTemp;
 
 	public Integer getId() {
 		return id;
@@ -90,6 +101,22 @@ public class Contato {
 
 	public void setEmails(Set<Email> emails) {
 		this.emails = emails;
+	}
+
+	public String getTelefoneTemp() {
+		return telefoneTemp;
+	}
+
+	public void setTelefoneTemp(String telefoneTemp) {
+		this.telefoneTemp = telefoneTemp;
+	}
+
+	public String getEmailTemp() {
+		return emailTemp;
+	}
+
+	public void setEmailTemp(String emailTemp) {
+		this.emailTemp = emailTemp;
 	}
 
 }
