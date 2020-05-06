@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -45,6 +46,15 @@ public class AgendaController {
 	public ModelAndView listar() {
 		List<Contato> resultados = contatoRepo.findAll();
 		ModelAndView mv = new ModelAndView("lista-template");
+		mv.addObject("itens", resultados);
+		return mv;
+	}
+	
+	@GetMapping("/busca")
+	public ModelAndView buscar(@RequestParam("termoBusca") String termoBusca) {
+		List<Contato> resultados = contatoRepo.searchNativo(termoBusca.toLowerCase());
+		ModelAndView mv = new ModelAndView("lista-template");
+		mv.addObject("msgBusca", "Resultados para <b>" + termoBusca + "</b>");
 		mv.addObject("itens", resultados);
 		return mv;
 	}

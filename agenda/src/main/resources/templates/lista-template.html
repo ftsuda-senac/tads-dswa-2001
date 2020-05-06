@@ -22,6 +22,19 @@ $(function() {
 		<h2>Agenda de contatos</h2>
 		<div class="alert alert-danger" role="alert" th:if="${msgErro != null}" th:text="${msgErro}"></div>
 		<div class="alert alert-success" role="alert" th:if="${msgSucesso != null}" th:text="${msgSucesso}"></div>
+		
+		<form method="get" th:action="@{/agenda/busca}">
+			<div class="row">
+				<div class="col-10">
+					<input type="text" name="termoBusca" class="form-control" placeholder="Digite um termo a ser buscado">
+				</div>
+				<div class="col-2">
+					<button type="submit" class="btn btn-primary btn-block">Buscar</button>
+				</div>
+			</div>
+		</form>
+		<div class="alert alert-primary" role="alert" th:if="${msgBusca !=null}" th:utext="${msgBusca}"></div>
+		
 		<table class="table table-striped">
 			<thead class="thead-dark">
 				<tr>
