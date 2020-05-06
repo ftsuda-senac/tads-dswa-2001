@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>Upload de arquivo</h1>
+	<div th:if="${msg != null}">
+		<h2 th:text="${msg}"></h2>
+		<div style="width: 100%">
+			<img th:if="${pathImagem !=null}" th:src="@{__${pathImagem}__}">
+		</div>
+	</div>
+	<form th:action="@{/upload/salvar}" method="post" enctype="multipart/form-data">
+		<input type="file" name="arquivo">
+		<button type="submit">Enviar</button>
+	</form>
+</body>
+</html>
