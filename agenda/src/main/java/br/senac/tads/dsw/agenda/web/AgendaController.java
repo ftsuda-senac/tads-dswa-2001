@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -81,7 +83,14 @@ public class AgendaController {
 
 	@PostMapping("/salvar")
 	@Transactional
-	public String salvar(@ModelAttribute("item") Contato cEnviado, BindingResult bindingResult, RedirectAttributes redirAttr) {
+	public String salvar(@ModelAttribute("item") @Valid Contato cEnviado, BindingResult bindingResult, 
+			RedirectAttributes redirAttr) {
+		
+		if (bindingResult.hasErrors()) {
+			// Reapresenta o formulário indicando os campos com erros
+			return "form-template";
+		}
+		
 		if (cEnviado.getId() != null) {
 			// Alterando informação existente
 			Optional<Contato> optContato = contatoRepo.findById(cEnviado.getId());
@@ -91,6 +100,11 @@ public class AgendaController {
 				c.setNome(cEnviado.getNome());
 				c.setApelido(cEnviado.getApelido());
 				c.setDataNascimento(cEnviado.getDataNascimento());
+
+				// Força setar valores temp por causa das validações
+				c.setTelefoneTemp(cEnviado.getTelefoneTemp());
+				c.setEmailTemp(cEnviado.getEmailTemp());
+				
 				c = contatoRepo.save(c);
 				
 				Set<Telefone> telefones = c.getTelefones();
@@ -98,6 +112,7 @@ public class AgendaController {
 					for (Telefone t : telefones) {
 						t.setNumero(cEnviado.getTelefoneTemp());
 						t = telefoneRepo.save(t);
+						break;
 					}
 				}
 				
@@ -106,8 +121,12 @@ public class AgendaController {
 					for (Email e : emails) {
 						e.setEndereco(cEnviado.getEmailTemp());
 						e = emailRepo.save(e);
+						break;
 					}
 				}
+			} else {
+				redirAttr.addFlashAttribute("msgErro", "Contato informado não existe");
+				return "redirect:/agenda";
 			}
 		} else {
 			// Incluindo novo contato
@@ -130,7 +149,25 @@ public class AgendaController {
 			e = emailRepo.save(e);
 			cEnviado.setEmails(new HashSet<>(Arrays.asList(e)));
 		}
-		redirAttr.addAttribute("msgSucesso", "Contato cadastrado com sucesso");
+		redirAttr.addFlashAttribute("msgSucesso", "Contato cadastrado com sucesso");
+		return "redirect:/agenda";
+	}
+
+	@PostMapping("/remover/{id}")
+	@Transactional
+	public String remover(@PathVariable("id") Integer id, RedirectAttributes redirAttr) {
+		Optional<Contato> optContato = contatoRepo.findById(id);
+		if (!optContato.isPresent()) {
+			// Contato nao encontrado
+			redirAttr.addFlashAttribute("msgErro", "Contato não encontrado");
+			return "redirect:/agenda";
+		}
+		Contato c = optContato.get();
+		emailRepo.deleteAll(c.getEmails());
+		telefoneRepo.deleteAll(c.getTelefones());
+		contatoRepo.delete(c);
+		
+		redirAttr.addFlashAttribute("msgSucesso", "Contato removido com sucesso");
 		return "redirect:/agenda";
 	}
 

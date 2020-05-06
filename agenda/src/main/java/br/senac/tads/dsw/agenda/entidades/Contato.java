@@ -11,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Past;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
@@ -23,13 +25,16 @@ public class Contato {
 	private Integer id;
 	
 	@Column
+	@NotBlank
 	private String nome;
 
 	@Column
+	@NotBlank
 	private String apelido;
 
 	@Column
 	@DateTimeFormat(iso = ISO.DATE) // ISO-8601
+	@Past
 	private LocalDate dataNascimento;
 
 	@Column
@@ -42,9 +47,12 @@ public class Contato {
 	private Set<Email> emails;
 
 	@Transient
+	@NotBlank
 	private transient String telefoneTemp;
 
 	@Transient
+	@NotBlank
+	@javax.validation.constraints.Email
 	private transient String emailTemp;
 
 	public Integer getId() {

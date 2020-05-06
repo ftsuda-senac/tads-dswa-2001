@@ -2,6 +2,20 @@
 <html layout:decorate="~{modelo}">
 <head>
 <meta charset="UTF-8">
+<script>
+$(function() {
+	$('#modalDelete').on('show.bs.modal', function (event) {
+		var button = $(event.relatedTarget) // Button that triggered the modal
+		var actionUrl = button.data('actionUrl') // Extract info from data-* attributes
+		var itemId = button.data('itemId')
+		// If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+		// Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+		var modal = $(this)
+		modal.find('.modal-message').text('Confirma remoção do item ID ' + itemId + '?')
+		modal.find('.modal-footer form').attr('action', actionUrl)
+	})
+})
+</script>
 </head>
 <body>
 	<div layout:fragment="conteudo">
@@ -31,7 +45,7 @@
 				</tr>
 			</tbody>
 		</table>
-		<a href="#" class="btn btn-success" th:href="@{/agenda/novo}" >Incluir novo</a>
+		<a href="#" class="btn btn-success" th:href="@{/agenda/novo}"><i class="fa fa-plus-circle"></i> Incluir novo</a>
 		<div id="modalDelete" class="modal fade" tabindex="-1" role="dialog">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
@@ -46,8 +60,8 @@
 					</div>
 					<footer class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
-						<form style="display: inline-block">
-							<button type="submit" class="btn btn-danger" data-dismiss="modal">Sim</button>
+						<form style="display: inline-block" method="post">
+							<button type="submit" class="btn btn-danger">Sim</button>
 						</form>
 					</footer>
 				</div>

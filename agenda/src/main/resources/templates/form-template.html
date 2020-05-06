@@ -6,41 +6,51 @@
 <body>
 	<div layout:fragment="conteudo">
 		<h2>Inclusão de contato</h2>
-		<form method="post" th:action="@{/agenda/salvar}" th:object="${item}">
+		<form method="post" th:action="@{/agenda/salvar}" th:object="${item}" novalidate>
 			<input type="hidden" name="id" th:if="*{id != null}" th:field="*{id}" />
 			<div class="form-group row">
 				<label class="col-2 col-form-label">Nome completo</label>
 				<div class="col-10">
-					<input type="text" class="form-control" th:field="*{nome}">
-					<p class="invalid-feedback"></p>
+					<input type="text" class="form-control" th:field="*{nome}"
+						th:classappend="${#fields.hasErrors('nome')}? is-invalid" required>
+					<p class="invalid-feedback" th:if="${#fields.hasErrors('nome')}? is-invalid" 
+						th:errors="*{nome}"></p>
 				</div>
 			</div>
 			<div class="form-group row">
 				<label class="col-2 col-form-label">Apelido</label>
 				<div class="col-10">
-					<input type="text" class="form-control" th:field="*{apelido}">
-					<p class="invalid-feedback"></p>
+					<input type="text" class="form-control" th:field="*{apelido}"
+						th:classappend="${#fields.hasErrors('apelido')}? is-invalid"required>
+					<p class="invalid-feedback" th:if="${#fields.hasErrors('apelido')}? is-invalid" 
+						th:errors="*{apelido}"></p>
 				</div>
 			</div>
 			<div class="form-group row">
 				<label class="col-2 col-form-label">Data nascimento</label>
 				<div class="col-10">
-					<input type="date" class="form-control" th:field="*{dataNascimento}">
-					<p class="invalid-feedback"></p>
+					<input type="date" class="form-control" th:field="*{dataNascimento}"
+						th:classappend="${#fields.hasErrors('dataNascimento')}? is-invalid" required>
+					<p class="invalid-feedback" th:if="${#fields.hasErrors('dataNascimento')}? is-invalid" 
+						th:errors="*{dataNascimento}"></p>
 				</div>
 			</div>
 			<div class="form-group row">
 				<label class="col-2 col-form-label">Telefone</label>
 				<div class="col-10">
-					<input type="text" class="form-control" th:field="*{telefoneTemp}">
-					<p class="invalid-feedback"></p>
+					<input type="text" class="form-control" th:field="*{telefoneTemp}"
+						th:classappend="${#fields.hasErrors('telefoneTemp')}? is-invalid" required>
+					<p class="invalid-feedback" th:if="${#fields.hasErrors('telefoneTemp')}? is-invalid" 
+						th:errors="*{telefoneTemp}"></p>
 				</div>
 			</div>
 			<div class="form-group row">
 				<label class="col-2 col-form-label">E-mail</label>
 				<div class="col-10">
-					<input type="email" class="form-control" th:field="*{emailTemp}">
-					<p class="invalid-feedback"></p>
+					<input type="email" class="form-control" th:field="*{emailTemp}"
+						th:classappend="${#fields.hasErrors('emailTemp')}? is-invalid" required>
+					<p class="invalid-feedback" th:if="${#fields.hasErrors('emailTemp')}? is-invalid" 
+						th:errors="*{emailTemp}"></p>
 				</div>
 			</div>
 			<div class="text-center">
