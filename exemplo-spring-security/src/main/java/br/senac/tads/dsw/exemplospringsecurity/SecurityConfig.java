@@ -54,7 +54,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     			.antMatchers("/protegido/god/**").hasAuthority("ROLE_GOD")
     			.anyRequest().authenticated()
 			.and()
-				.formLogin().permitAll();
+				.formLogin()
+					.loginPage("/custom-login")
+					.usernameParameter("username")
+					.passwordParameter("senha")
+					.defaultSuccessUrl("/home")
+					.permitAll()
+			.and()
+				.logout()
+					.logoutSuccessUrl("/custom-login?logout")
+					.invalidateHttpSession(true)
+			.and()
+				.exceptionHandling()
+					.accessDeniedPage("/erro/403");
     	
     }
     
