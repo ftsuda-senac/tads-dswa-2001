@@ -5,6 +5,7 @@
  */
 package br.senac.tads.dsw.exemplospringsecurity.controller;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,7 +34,7 @@ public class ProtegidoController {
     }
 
     @GetMapping("/god")
-    public ModelAndView mostrargODPage() {
+    public ModelAndView mostrarGodPage() {
         return new ModelAndView("resultado")
                 .addObject("titulo", "Página do GOD")
                 .addObject("msg", "Usuário logado possui papel \"GOD\"");
