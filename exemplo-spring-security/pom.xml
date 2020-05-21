@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.2.7.RELEASE</version>
+        <version>2.3.0.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>br.senac.tads.dsw</groupId>
@@ -43,6 +43,18 @@
             <artifactId>spring-boot-devtools</artifactId>
             <scope>runtime</scope>
         </dependency>
+
+		<!--
+			DEPENDÊNCIA TEMPORÁRIA PARA DETECTAR ERROS NA CONFIGURAÇÃO
+			DOS PROPERTIES AO MIGRAR DO SPRING BOOT 2.2.x PARA 2.3.x.
+			REMOVER SE NÃO APARECER NENHUM AVISO NA INICIALIZAÇÃO .
+		-->
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-properties-migrator</artifactId>
+		    <scope>runtime</scope>
+		</dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
