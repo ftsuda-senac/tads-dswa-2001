@@ -46,12 +46,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
    
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+    	// Correção para acessar console do banco H2 quando estiver com Security
+    	// Resolve erro relacionado ao x-frame-options
+    	http.headers().frameOptions().sameOrigin();
+    	
     	http.csrf().disable()
     		.authorizeRequests()
-    			.antMatchers("/css/**", "/js/**", "/font/**").permitAll()
+    			.antMatchers("/css/**", "/js/**", "/img/**", "/font/**", "/", "/index.html", "/h2/**").permitAll()
     			.antMatchers("/protegido/peao/**").hasRole("PEAO") // ou hasAuthority("ROLE_PEAO")
-    			.antMatchers("/protegido/fodon/**").hasAuthority("ROLE_FODON")
-    			.antMatchers("/protegido/god/**").hasAuthority("ROLE_GOD")
+    			.antMatchers("/protegido/fodon/**").hasRole("FODON") // ou hasAuthority("ROLE_FODON")
+    			.antMatchers("/protegido/god/**").hasRole("GOD") // ou hasAuthority("ROLE_GOD")
     			.anyRequest().authenticated()
 			.and()
 				.formLogin()
