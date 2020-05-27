@@ -44,6 +44,22 @@ code {
 </style>
 <script>
 $(function() {
+	/* Se informar ID na URL, carrega os dados */
+	/* https://stackoverflow.com/a/901144 */
+	let urlParams = new URLSearchParams(window.location.search);
+	if (urlParams.get("id") !== null) {
+		$.getJSON("/rest/pessoas/" + urlParams.get("id"), function(dataJSON) {
+			let form = document.getElementById("dadosForm");
+			form.id.value = dataJSON.id;
+			form.nome.value = dataJSON.nome;
+			form.sexo.value = dataJSON.sexo;
+			form.dataNascimento.value = dataJSON.dataNascimento;
+			for (let interesse of dataJSON.interesses) {
+				document.getElementById("interesse_" + interesse.id).checked = true
+			}
+		});
+	}
+	
 	$("#dadosForm").on("submit", function(ev) {
 		ev.preventDefault();
 		let form = this;

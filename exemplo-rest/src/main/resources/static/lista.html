@@ -55,6 +55,7 @@ function montaLinhaTabela(itemJSON) {
             "</tr>";
 }
 $(function() {
+	// TESTE DE CORS
 	$.getJSON("http://127.0.0.1:8080/rest/pessoas", function(dataJSON) {
 		$("#itensTabela").html("");
 		for (let itemJSON of dataJSON.content) {
