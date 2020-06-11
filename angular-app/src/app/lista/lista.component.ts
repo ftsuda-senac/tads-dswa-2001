@@ -33,7 +33,7 @@ export class ListaComponent implements OnInit {
   first: boolean = true;
   last: boolean = true;
 
-  modal: ModalInfo = {
+  modalInfo: ModalInfo = {
     mensagem: '',
     itemId: 0
   }
@@ -94,7 +94,7 @@ export class ListaComponent implements OnInit {
   }
 
   abrirModalDelete(modalDelete: any, id: number) {
-    this.modal = {
+    this.modalInfo = {
       mensagem: 'Confirma remoção da pessoa ID ' + id + '?',
       itemId: id
     }
@@ -102,8 +102,8 @@ export class ListaComponent implements OnInit {
   }
 
   deletePessoa() {
-    this.pessoaService.deleteById(this.modal.itemId).subscribe(() => {
-      this.modal = {
+    this.pessoaService.deleteById(this.modalInfo.itemId).subscribe(() => {
+      this.modalInfo = {
         mensagem: '',
         itemId: 0
       }

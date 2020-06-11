@@ -40,7 +40,7 @@
                 <input class="form-check-input" type="checkbox" name="interessesId"
                     [id]="'interesse_' + interesse.id"
                     [checked]="interesse.selecionado"
-                    (changed)="interesse.selecionado != interesse.selecionado"
+                    (change)="interesse.selecionado=!interesse.selecionado"
                 >
                 <label class="form-check-label" [attr.for]="'interesse_' + interesse.id">{{interesse.nome}}</label>
             </div>
@@ -51,7 +51,8 @@
         <button type="submit" class="btn btn-primary">Salvar</button>
     </div>
 </form>
-<div>{{pessoa | json}}</div>
+<p>Interesse: <code>{{interesses | json}}</code></p>
+<p>Pessoa: <code>{{pessoa | json}}</code></p>
 
 </div>
     </div>

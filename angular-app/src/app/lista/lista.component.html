@@ -50,6 +50,12 @@
 </table>
 <button routerLink="/novo" type="button" class="btn btn-success"><i class="fa fa-plus-circle"></i> Incluir novo</button>
 
+<!-- 
+    Abaixo,
+    #modalDelete é um nome definido para ser usado no botão que abre o modal
+    let-modal é referência interna a palavra 'modal' usadas nos clicks abaixo
+    Por causa disso, modal fica reservado e não pode ser usado no Component (foi alterado para modalInfo)
+-->
 <ng-template #modalDelete let-modal>
     <div class="modal-content">
         <header class="modal-header">
@@ -59,7 +65,7 @@
             </button>
         </header>
         <div class="modal-body">
-            <p class="modal-message">{{modal.mensagem}}</p>
+            <p class="modal-message">{{modalInfo.mensagem}}</p>
         </div>
         <footer class="modal-footer">
             <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Não</button>
